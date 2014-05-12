@@ -25,6 +25,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import de.aflx.sardine.util.QName;
 
@@ -65,6 +66,7 @@ import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.entity.InputStreamEntity;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.auth.BasicScheme;
+import org.apache.http.impl.auth.DigestScheme;
 import org.apache.http.impl.client.AbstractHttpClient;
 //import org.apache.http.impl.client.BasicAuthCache;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -308,7 +310,14 @@ public class SardineImpl implements Sardine {
 	            AuthScope authScope = new AuthScope(targetHost.getHostName(), targetHost.getPort());
 	            Credentials creds = credsProvider.getCredentials(authScope);
 	            if (creds != null) {
-	                authState.setAuthScheme(new BasicScheme());
+	            	DigestScheme digestAuth = new DigestScheme();
+	            	digestAuth.overrideParamter("algorithm", "MD5");
+	            	digestAuth.overrideParamter("realm", "Network Attached Storage");
+	            	digestAuth.overrideParamter("nonce", Long.toString(new Random().nextLong(), 36));
+	            	digestAuth.overrideParamter("qop", "auth");//   not effective
+	            	digestAuth.overrideParamter("cnonce", DigestScheme.createCnonce());
+	            	authState.setAuthScheme(digestAuth);
+	                //authState.setAuthScheme(new BasicScheme());
 	                authState.setCredentials(creds);
 	            }
 	        }
