@@ -55,21 +55,23 @@ import org.simpleframework.xml.Element;
 //@XmlRootElement(name = "prop")
 public class Prop {
 
-	@Element
-	private Resourcetype resourcetype;
+	//@Element
+	//private Resourcetype resourcetype;
 	@Element
 	private String creationdate;
 	@Element
 	private String getlastmodified;
-	@Element
+	@Element (required = false)
 	private String getetag;
 	@Element (required = false)
 	private String getcontenttype;
 	
+	/*
 	public Resourcetype getResourcetype() {
 		return resourcetype;
 	}
-
+	 */
+	
 	public String getCreationdate() {
 		return creationdate;
 	}
@@ -87,16 +89,12 @@ public class Prop {
 	}
 
 	
-    /*protected Creationdate creationdate;
+    //protected Creationdate creationdate;
     protected Displayname displayname;
     protected Getcontentlanguage getcontentlanguage;
     protected Getcontentlength getcontentlength;
-    protected Getcontenttype getcontenttype;
-    protected Getetag getetag;
-    protected Getlastmodified getlastmodified;
-    protected Lockdiscovery lockdiscovery;
-    protected Resourcetype resourcetype;
-    protected Supportedlock supportedlock;*/
+    //protected Lockdiscovery lockdiscovery;
+    //protected Supportedlock supportedlock;
 //    @XmlAnyElement
 	@Element (required = false)
     protected List<Element> any;
