@@ -65,6 +65,8 @@ public class Prop {
 	private String getetag;
 	@Element (required = false)
 	private String getcontenttype;
+	@Element (required = false)
+	private String getcontentlength;
 	
 	/*
 	public Resourcetype getResourcetype() {
@@ -88,11 +90,14 @@ public class Prop {
 		return getcontenttype;
 	}
 
+	public String getGetcontentlength(){
+		return getcontentlength;
+	}
 	
     //protected Creationdate creationdate;
     protected Displayname displayname;
     protected Getcontentlanguage getcontentlanguage;
-    protected Getcontentlength getcontentlength;
+    //protected Getcontentlength getcontentlength;
     //protected Lockdiscovery lockdiscovery;
     //protected Supportedlock supportedlock;
 //    @XmlAnyElement
