@@ -583,7 +583,9 @@ public class SardineImpl implements Sardine {
 	public void put(String url, byte[] data, String contentType)
 			throws IOException {
 		ByteArrayEntity entity = new ByteArrayEntity(data);
-		this.put(url, entity, contentType, true);
+		// Lighttpd will report 4167 error for Expect header
+		// http://redmine.lighttpd.net/issues/1017
+		this.put(url, entity, contentType, false);
 	}
 
 	/**
@@ -592,8 +594,8 @@ public class SardineImpl implements Sardine {
 	 * @see de.aflx.sardine.Sardine#put(java.lang.String,
 	 *      java.io.InputStream)
 	 */
-	public void put(String url, InputStream dataStream) throws IOException {
-		this.put(url, dataStream, (String) null);
+	public void put(String url, InputStream dataStream, long len) throws IOException {
+		this.put(url, dataStream, len, (String) null);
 	}
 
 	/**
@@ -602,9 +604,11 @@ public class SardineImpl implements Sardine {
 	 * @see de.aflx.sardine.Sardine#put(java.lang.String,
 	 *      java.io.InputStream, java.lang.String)
 	 */
-	public void put(String url, InputStream dataStream, String contentType)
-			throws IOException {
-		this.put(url, dataStream, contentType, true);
+	public void put(String url, InputStream dataStream, long len, 
+			String contentType)	throws IOException {
+		// Lighttpd will report 4167 error for Expect header
+		// http://redmine.lighttpd.net/issues/1017
+		this.put(url, dataStream, len, contentType, false);
 	}
 
 	/**
@@ -613,10 +617,10 @@ public class SardineImpl implements Sardine {
 	 * @see de.aflx.sardine.Sardine#put(java.lang.String,
 	 *      java.io.InputStream, java.lang.String, boolean)
 	 */
-	public void put(String url, InputStream dataStream, String contentType,
-			boolean expectContinue) throws IOException {
+	public void put(String url, InputStream dataStream, long len,
+			String contentType, boolean expectContinue) throws IOException {
 		// A length of -1 means "go until end of stream"
-		InputStreamEntity entity = new InputStreamEntity(dataStream, -1);
+		InputStreamEntity entity = new InputStreamEntity(dataStream, len);
 		this.put(url, entity, contentType, expectContinue);
 	}
 

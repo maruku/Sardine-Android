@@ -121,9 +121,10 @@ public interface Sardine
 	 *
 	 * @param url		Path to the resource including protocol and hostname
 	 * @param dataStream Input source
+	 * @param len Source length
 	 * @throws IOException I/O error or HTTP response validation failure
 	 */
-	void put(String url, InputStream dataStream) throws IOException;
+	void put(String url, InputStream dataStream, long len) throws IOException;
 
 	/**
 	 * Uses <code>PUT</code> to send data to a server with a specific content type
@@ -142,10 +143,11 @@ public interface Sardine
 	 *
 	 * @param url		 Path to the resource including protocol and hostname
 	 * @param dataStream  Input source
+	 * @param len Source length
 	 * @param contentType MIME type to add to the HTTP request header
 	 * @throws IOException I/O error or HTTP response validation failure
 	 */
-	void put(String url, InputStream dataStream, String contentType) throws IOException;
+	void put(String url, InputStream dataStream, long len, String contentType) throws IOException;
 
 	/**
 	 * Uses <code>PUT</code> to send data to a server with a specific content
@@ -153,11 +155,12 @@ public interface Sardine
 	 *
 	 * @param url			Path to the resource including protocol and hostname
 	 * @param dataStream	 Input source
+	 * @param len Source length
 	 * @param contentType	MIME type to add to the HTTP request header
 	 * @param expectContinue Enable <code>Expect: continue</code> header for <code>PUT</code> requests.
 	 * @throws IOException I/O error or HTTP response validation failure
 	 */
-	void put(String url, InputStream dataStream, String contentType, boolean expectContinue) throws IOException;
+	void put(String url, InputStream dataStream, long len, String contentType, boolean expectContinue) throws IOException;
 
 	/**
 	 * Uses <code>PUT</code> to send data to a server with specific headers. Not repeatable
